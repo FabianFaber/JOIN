@@ -1,0 +1,237 @@
+body {
+    font-family: "Inter";
+    margin: 0;
+}
+
+.contactOverlayContainer {
+    width: 1212px;
+    height: 592px;
+    border-radius: 30px;
+    background-color: var(--background-color-white);
+    display: flex;
+    box-sizing: border-box;
+    font-family: "Inter";
+    z-index: 750;
+}
+
+/* Left Side */
+
+.contactOverlayLeft {
+    height: 592px;
+    border-radius: 30px 0 0 30px;
+    background-color: var(--background-color-main);
+    color: var(--white);
+    padding: 0 46px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contactOverlayLeft svg {
+    margin-top: 132px;
+    width: 54px;
+    height: 67px;
+}
+
+.adjustContact,
+.adjustContactEdit {
+    height: 125px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.adjustContactEdit {
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.adjustContact::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateX(0%);
+    width: 90px;
+    border-bottom: 3px solid var(--lightBlue);
+}
+
+.adjustContactText {
+    font-size: 61px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+}
+
+.adjustContactTextSecondLine {
+    font-size: 27px;
+}
+
+/* Right Side */
+
+.contactContainer {
+    height: 592px;
+    border-radius: 0 30px 30px 0;
+    background-color: var(--background-color-white);
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.contactOverlayInitialsContainer {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+.contactOverlayInitials {
+    width: 120px;
+    height: 120px;
+    margin: 0 0 132px 0;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 122, 0, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--white);
+}
+
+.contactEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 57px;
+    margin-right: 66px;
+}
+
+.contactEditCloseHorizontal {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    margin-right: -24px;
+    cursor: pointer;
+    background-color: var(--background-color-white);
+}
+
+.closeButton {
+    display: none;
+}
+
+.contactEditCloseVertical {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    margin-right: -24px;
+    cursor: pointer;
+    background-color: var(--background-color-white);
+}
+
+.contactEditClose:hover {
+    background-color: var(--background-color-lightGray);
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+}
+
+.inputContainerIcon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -45px;
+}
+
+.contactEdit input {
+    width: 380px;
+    height: 24px;
+    border-radius: 10px;
+    font-size: 19px;
+    padding: 13px 21px;
+    border: 1px solid var(--style);
+    gap: 10px;
+    background-color: transparent;
+}
+
+::placeholder {
+    color: var(--style);
+}
+
+.contactEdit input:focus {
+    border: 1px solid var(--background-color-lightBlue);
+    outline: none;
+}
+
+.contactButtonContainer {
+    display: flex;
+    gap: 25px;
+    margin-top: 48px;
+}
+
+.contactButtonBorder {
+    border-radius: 8px;
+    border: 1px solid rgba(42, 54, 71, 1);
+    background-color: var(--background-color-white);
+    font-size: 21px;
+    line-height: 25.2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.contactButtonBorder:hover {
+    border-color: var(--background-color-lightBlue);
+    color: var(--lightBlue);
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    stroke: var(--background-color-lightBlue);
+    fill: var(--background-color-lightBlue);
+}
+
+.contactButtonFull {
+    background-color: var(--background-color-main);
+    color: var(--white);
+    font-weight: 700;
+    padding: 16px;
+}
+
+.contactButtonFull:hover {
+    background-color: var(--background-color-lightBlue);
+    border-color: var(--background-color-lightBlue);
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    color: var(--white);
+}
+
+.iconDiv {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dNone {
+    display: none;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/fonts.css">
+    <link rel="stylesheet" href="./style/contacts.css">
+    <link rel="stylesheet" href="./media/contactsMedia.css">
+    <link rel="stylesheet" href="./style/global.css">
+    <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
+    <link rel="stylesheet" href="style/headerMenuBar.css">
+    <link rel="stylesheet" href="style/fonts.css">
+
+    <title>JOIN Contact</title>
+</head>
+
+<body onload="initContacts()">
+
+    <div class="sidebar">
+        <a href="welcome.html" class="welcome"><img class="sidebarLogo" src="./img/header_menuBar_img/Join_logo_vector.png"
+                alt="Join Logo"></a>
+        <nav class="sidebarNav">
+            <a id="summary-link" class="sidebarNavHover" onclick="openSite('welcome.html', 'summary-link')"><img
+                    src="./img/header_menuBar_img/icons/Summary.png"> Summary</a>
+            <a id="add-task-link" class="sidebarNavHover" onclick="openSite('add_task.html', 'add-task-link')"><img
+                    src="./img/header_menuBar_img/icons/Add task.png" alt="Add Task Icon"> Add&nbsp;Task</a>
+            <a id="board-link" class="sidebarNavHover" onclick="openSite('board.html', 'board-link')"><img
+                    src="./img/header_menuBar_img/icons/Board.png" alt="Board Icon"> Board</a>
+            <a id="contacts-link" class="sidebarNavHover" onclick="openSite('contacts.html', 'contacts-link')"><img
+                    src="./img/header_menuBar_img/icons/Contacts.png" alt="Contacts Icon"> Contacts</a>
+        </nav>
+
+        <div class="footer">
+            <a class="footerHover" id="notice-link" href="privacyPolicy.html">Privacy&nbsp;Policy</a>
+            <a class="footerHover" id="policy-link" href="legalNotice.html">Legal&nbsp;notice</a>
+        </div>
+    </div>
+
+
+    <div class="main-content">
+        <header>
+            <h3 class="headerTitle"> Kanban Project Management Tool</h3>
+            <a href="welcome.html"><img class="smallLogo"
+                    src="./img/header_menuBar_img/Logo_for_Favicon_construction.png" alt="Join Logo"></a>
+            <div class="user-info">
+                <a href="helpPage.html"><img src="./img/header_menuBar_img/icons/help.png" alt="" class="help-icon"></a>
+                <!-- <div class="dropdown" id="dropdown-toggle">                    -->
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="contacts-data-container">
+        <div class="content">
+            <div class="contacts">
+                <button onclick="showAddContactPopUp('add')">Add new contact <img
+                        src="./img/contact_img/person_add.png"></button>
+                <div class="contactsData-container">
+                    <button id="round-add-contact" onclick="showAddContactPopUp('add')">
+                        <img src="./img/contact_img/person_add.png">
+                    </button>
+                    <div class="userContacts" id="contacts">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contactCard" id="contactCardPopUp">
+            <div class="contactsHeadline ">
+                <h2>Contacts</h2>
+                <div class="blueBar"></div>
+                <p class="contacts-slogan ">Better&nbsp;with a&nbsp;team</p>
+            </div>
+            <div id="contact-details" class="slide-in">
+            </div>
+        </div>
+    </div>
+
+    <div id="background-dim">
+        <div class="pop-up-hidden" id="add-task-pop-up">
+            <div id="add-pop-up" class="d-none" w3-include-html="addContactOverlay.html"></div>
+            <div id="edit-pop-up" class="d-none" w3-include-html="contactOverlayEdit.html"></div>
+        </div>
+    </div>
+
+    <div id="overlay" onclick="closeDropDownMenu()"></div>
+    <div id="dropdown-toggle" onclick="initializeDropdownMenu()">
+
+    <script src="./js/contacts.js"></script>
+    <script src="./js/w3school.js"></script>
+    <script src="./js/contact_HTML.js"></script>
+    <script src="./js/headerMenuBar.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+:root {
+    --main-background-color: rgb(246, 247, 248);
+    --main-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --border-color: rgb(238, 238, 238);
+    --border-radius: 8px;
+    --menu-bar-color: rgb(42, 54, 71);
+}
+
+::placeholder,
+textarea,
+input {
+    font-family: var(--main-font);
+    border-radius: var(--border-radius);
+    font-size: 20px;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    font-family: var(--main-font);
+    background-color: var(--main-background-color);
+    font-size: 20px;
+    font-family: "Inter";
+    overflow-x: hidden;
+}
+
+main {
+    margin: 45px 90px 0 328px;
+    max-width: 1088px;
+}
+
+.task-board-title-container{
+    display:flex;
+    justify-content: space-between;
+}
+
+.drop-down-menu-mobile-board {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 60px 16px 0 0;
+
+}
+
+.step-container-null-content{
+    width:98%;
+    height:50px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border:2px dashed rgba(0, 0, 0, 0.2);
+    color:rgba(0, 0, 0, 0.3);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 32px;
+}
+
+.board-title {
+    font-size: 61px;
+    margin: 0;
+    padding-right: 20px;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 320px;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #a8a8a8;
+    background-color: white;
+    cursor: pointer;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+}
+
+#search-input {
+    width: 100%;
+}
+
+.search-bar .icon {
+    margin-left: 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.text {
+    display: flex;
+    justify-content: space-between;
+    width: 252px;
+    font-weight: bold;
+}
+
+.moveToDropdown{
+    display: block;
+    background-color: rgb(209,209,209);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 15px;
+    width: 120px;
+    border-radius: 16px;
+}
+
+.moveToDropdown span {
+    padding-left: 5px;
+}
+
+.svg-board-container{
+    width:40px;
+    height:40px;
+    display:flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.moveToCatagory{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.moveToCatagory span{
+    padding: 5px;
+}
+
+.moveToCatagory span:hover {
+    background-color: rgba(9, 24, 47, 1);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.add-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 48px;
+    padding: 8px 16px;
+    background-color: #2a3647;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-task:hover {
+    background-color: #29abe2;
+    border-color: #29abe2;
+}
+
+.add-task span {
+    font-size: 40px;
+    font-weight: lighter;
+}
+
+article {
+    display: flex;
+    padding-top: 80px;
+    gap: 16px;
+    box-sizing: border-box;
+    /* padding-right: 16px; */
+}
+
+.section4 {
+    margin-right: 30px;
+}
+
+/* Nur der Hover-Effekt auf das SVG-Icon anwenden */
+.svgHover svg:hover rect,
+.svgHover svg:hover path {
+    stroke: #29abe2;
+    fill: rgba(168, 168, 168, 0.01);
+    cursor: pointer;
+}
+
+.task-smallview-container {
+    width: 252px;
+    min-height: 500px;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+.task-smallview {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 24px;
+    cursor: pointer;
+    width: 252px;
+    position: relative;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lightgray {
+    color: lightgray;
+}
+
+.task-smallview-title {
+    background-color: rgb(0, 55, 255);
+    width: fit-content;
+    text-align: center;
+    padding: 4px 16px;
+    color: white;
+    border-radius: 10px;
+    white-space: nowrap;
+    margin-bottom: 16px;
+}
+
+.smallview-description,
+.smallview-title {
+    min-height: 42px;
+    max-height: 42px;
+    display: flex;
+    align-items: center;
+    width: 212px;
+    word-wrap: break-word;
+}
+
+.container-highlight {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 1px dashed black;
+}
+
+.rotate {
+    transform: rotate(5deg);
+    filter: brightness(90%);
+}
+
+.mb-20 {
+    margin-bottom: 50px;
+}
+
+.progressBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.media-add-task {
+    background-color: #2a3647;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 40px;
+    font-weight: lighter;
+    display: none;
+}
+
+.smallview-description{
+    word-break: break-all;
+}

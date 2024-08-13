@@ -1,0 +1,99 @@
+<body >
+    <main class="add-task-main addtask-pop-up">
+        <h1>Add Task</h1> 
+        <div class="close-addtask-btn" onclick="closePopUp('add')">X</div>
+        <form onsubmit="getDataFromTask('addtask');return false">
+            <div class="add-task-container">
+                <div class="add-task-left">
+                    <div class="gap8">
+                        <span>Title*</span>
+                        <input id="task-title" type="text" class="border ht48 pl16 clear-task"
+                            placeholder="Enter a title" required minlength="3" maxlength="33">
+                    </div>
+                    <div class="gap8">
+                        <span>Description</span>
+                        <textarea id="task-description" class="border add-task-textarea pl16 clear-task"
+                            placeholder="Enter a Description" type="text"></textarea>
+                    </div>
+                    <div class="gap8">
+                        <span>Assigned to</span>
+                        <div class="assigned-to-container" id="assigned-to-container-addtask">
+                            <div class="assigned-to ht48" onclick="openDropDown('assigned-to','addtask')">
+                                <span id="select-assigned-to-addtask" class="pl16">Select contacts to assign</span>
+                                <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
+                            </div>
+                            <div class="drop-down-hidden d-none" id="assigned-to-addtask">
+                            </div>
+                            <div id="contacts-initials-container-addtask">
+
+                            </div>
+                        </div>
+                    </div>
+                    <span class="required-text">*This field is required</span>
+
+                </div>
+                <div class="line"> </div>
+                <div class="add-task-right">
+                    <div class="gap8">
+                        <span>Due date*</span>
+                        <input id="task-date-addtask" placeholder="dd/mm/yyyy" class="border ht48 pl16 pr16 clear-task"
+                            type="date" required>
+                    </div>
+                    <div class="gap8">
+                        <span>Prio</span>
+                        <div class="prio" id="prio">
+                            <button id="urgent-btn-addtask" class="btn-addtask" onclick="changePrioColorToUrgent(this,'urgent', 'addtask')"
+                                type="button">Urgent <img id="img-urgent-addtask"
+                                    src="img/add_task_img/urgent.png"></button>
+                            <button id="medium-btn-addtask" class="medium bold btn-addtask"
+                                onclick="changePrioColorToMedium(this, 'medium', 'addtask')" type="button">Medium <img
+                                    id="img-medium-addtask" src="img/add_task_img/medium.png"></button>
+                            <button class="btn-addtask" id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')"
+                                type="button">Low <img id="img-low-addtask" src="img/add_task_img/low.png"></button>
+                        </div>
+                    </div>
+                    <div class="gap8">
+                        <span>Category*</span>
+                        <div class="category-container" id="category-container-addtask">
+                            <div class="category ht48" onclick="openDropDown('category','addtask')">
+                                <span id="select-category-addtask" class="pl16">Select task category</span>
+                                <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
+                            </div>
+
+                            <div class="drop-down-hidden d-none" id="category-addtask">
+
+                                <span onclick="categorySelected(this, 'category', 'addtask')">Technical Task</span>
+                                <span onclick="categorySelected(this, 'category', 'addtask')">User Story</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gap8">
+                        <span>Subtasks</span>
+                        <div class="input-container">
+                            <div class="add-task-subtask w-440">
+                                <input oninput="changeAddIconFromSubtask('addtask')" id="task-subtask-addtask"
+                                    class="border pl16 clear-task ht48" placeholder="Add new subtask">
+                                <div id="subtask-img-container-addtask">
+                                    <img src="img/add_task_img/add.png" onclick="addSubtask('addtask')">
+                                </div>
+                            </div>
+                            <div class="new-subtask-container">
+                                <ul id="new-subtask-addtask"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="send-btn-container">
+                        <div>
+                            <button type="button" onclick="clearTask('addtask')" class="add-task-btn">Clear X</button>
+                            <button type="submit" class="add-task-btn btn-create">Create Task <img
+                                    src="img/add_task_img/check.png"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <div id="successMessage-addTask" class="success-message"><span>Task added to Board</span> <img
+                src="./img/header_menuBar_img/icons/Board.png"> </div>
+    </main>
+</body>

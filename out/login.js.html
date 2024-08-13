@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: login.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: login.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+
+
+/**
+ * Logs in a user by verifying email and password, and redirects to the welcome page if successful.
+ * Shows an error message if the login fails.
+ */
+async function loginUser() {
+    let email = document.getElementById('emailLogin').value;
+    let password = document.getElementById('passwordLogin').value;
+
+    let users = await fetchUsers();
+    let user = findUserByEmail(users, email);
+
+    if (!user) {
+        showError("Invalid email or password. Please try again.");
+        return;
+    }
+
+    let userKey = getUserKey(users, email);
+    let name = formatUserName(users[userKey].name);
+
+    if (user.password === password) {
+        saveUserSession(email, name);
+        await updateUserLoginStatus(userKey, email, user.name, password, true);
+
+        window.location.href = 'welcome.html';
+    } else {
+        showError("Invalid email or password. Please try again.");
+    }
+}
+
+
+/**
+ * Fetches the list of users from the server.
+ * @returns {Promise&lt;Object>} A promise that resolves to the users object.
+ */
+async function fetchUsers() {
+    let response = await fetch(BASE_URL + "users.json");
+    return await response.json();
+}
+
+
+/**
+ * Finds a user by their email address.
+ * @param {Object} users - The users object.
+ * @param {string} email - The email address to search for.
+ * @returns {Object|undefined} The user object if found, otherwise undefined.
+ */
+function findUserByEmail(users, email) {
+    return Object.values(users).find(user => user.email === email);
+}
+
+
+/**
+ * Gets the key of a user by their email address.
+ * @param {Object} users - The users object.
+ * @param {string} email - The email address to search for.
+ * @returns {string|undefined} The user key if found, otherwise undefined.
+ */
+function getUserKey(users, email) {
+    return Object.keys(users).find(key => users[key].email === email);
+}
+
+
+/**
+ * Formats the user's name by abbreviating the second part if it's longer than 6 characters.
+ * @param {string} name - The full name of the user.
+ * @returns {string} The formatted name.
+ */
+function formatUserName(name) {
+    let nameParts = name.split(' ');
+
+    if (nameParts.length > 1 &amp;&amp; nameParts[1].length > 6) {
+        nameParts[1] = nameParts[1][0] + '.';
+    }
+
+    return nameParts.join(' ');
+}
+
+
+/**
+ * Saves the user's session information in local storage.
+ * @param {string} email - The user's email address.
+ * @param {string} name - The user's formatted name.
+ */
+function saveUserSession(email, name) {
+    localStorage.setItem('emailUser', email);
+    localStorage.setItem('nameUser', name);
+    loginSave();
+}
+
+
+/**
+ * Displays the sign-up form and hides the login form.
+ */
+function showSignUp() {
+    let login = document.getElementById('showLogin');
+    let signup = document.getElementById('showSignup');
+
+    login.classList.add('hidden');
+    signup.classList.add('signUp');
+    login.classList.remove('overlay');
+    signup.classList.remove('hidden');
+}
+
+
+/**
+ * Displays the login form and hides the sign-up form.
+ */
+function showLogin() {
+    let login = document.getElementById('showLogin');
+    let signup = document.getElementById('showSignup');
+
+    login.classList.remove('hidden');
+    signup.classList.remove('signUp');
+    login.classList.add('overlay');
+    signup.classList.add('hidden');
+}
+
+
+/**
+ * Updates the login status of the user.
+ * 
+ * @param {string} userKey - The key of the user in the database.
+ * @param {string} email - The email of the user.
+ * @param {string} name - The name of the user.
+ * @param {string} password - The password of the user.
+ * @param {boolean} status - The login status of the user.
+ * @returns {Promise&lt;void>}
+ */
+async function updateUserLoginStatus(userKey, email, name, password, status) {
+    await fetch(BASE_URL + "users/" + userKey + ".json", {
+        method: "PUT",
+        body: JSON.stringify({
+            email: email,
+            name: name,
+            password: password,
+            loginStatus: status
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+}
+
+
+/**
+ * Asynchronously adds a user if the policy is accepted and all validations pass.
+ * 
+ * @async
+ * @function addUser
+ * @returns {Promise&lt;void>}
+ */
+async function addUser() {
+    if (!isPolicyAccepted()) {
+        showError("Please accept the policy");
+        return;
+    }
+
+    let { name, email, password, confirmPassword } = getValueFromInput();
+
+    if (!validatePasswords(password, confirmPassword)) {
+        return;
+    }
+
+    name = capitalizeFirstLetterOfEachWord(name);
+    let user = createUserObject(email, name, password);
+
+    if (await checkIfUserExists(email)) {
+        showError("This email address is already registered.");
+        return;
+    }
+
+    if (await addUserToDatabase(user)) {
+        clearForm();
+        showSuccessMessage();
+    }
+}
+
+
+/**
+ * Retrieves values from input fields.
+ * 
+ * @function getValueFromInput
+ * @returns {Object} An object containing name, email, password, and confirmPassword.
+ * @returns {string} return.name - The name input value.
+ * @returns {string} return.email - The email input value.
+ * @returns {string} return.password - The password input value.
+ * @returns {string} return.confirmPassword - The confirm password input value.
+ */
+function getValueFromInput(){
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirmPassword').value;
+    return { name, email, password, confirmPassword };
+}
+
+
+/**
+ * Clears the input form fields.
+ * 
+ * @function clearForm
+ * @returns {void}
+ */
+function clearForm(){
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirmPassword').value = '';
+}
+
+
+/**
+ * Checks if the policy is accepted by the user.
+ * 
+ * @returns {boolean} - Returns true if the policy is accepted, false otherwise.
+ */
+function isPolicyAccepted() {
+    let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
+    return !checkBoxIcon.includes('checkbox_icon.svg');
+}
+
+
+/**
+ * Validates if the provided passwords match.
+ * Displays an error message if passwords do not match.
+ * 
+ * @param {string} password - The user's password.
+ * @param {string} confirmPassword - The confirmation of the user's password.
+ * @returns {boolean} - Returns true if the passwords match, false otherwise.
+ */
+function validatePasswords(password, confirmPassword) {
+    let errorElement = document.getElementById('error');
+    if (password !== confirmPassword) {
+        errorElement.style.display = 'block';
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        return true;
+    }
+}
+
+
+/**
+ * Creates a user object with the provided email, name, and password.
+ * 
+ * @param {string} email - The user's email.
+ * @param {string} name - The user's name.
+ * @param {string} password - The user's password.
+ * @returns {Object} - Returns a user object with the given properties.
+ */
+function createUserObject(email, name, password) {
+    return {
+        email: email,
+        name: name,
+        password: password,
+        loginStatus: false,
+    };
+}
+
+
+/**
+ * Capitalizes the first letter of each word in a string.
+ * @param {string} name - The string to capitalize.
+ * @returns {string} - The capitalized string.
+ */
+function capitalizeFirstLetterOfEachWord(name) {
+    return name.replace(/\b\w/g, char => char.toUpperCase());
+}
+
+
+/**
+ * Adds a new user to the database.
+ * 
+ * @param {Object} user - The user object containing user details.
+ * @returns {Promise&lt;boolean>} - Returns true if the user is added successfully, otherwise false.
+ */
+async function addUserToDatabase(user) {
+    let response = await fetch(BASE_URL + "users.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    });
+    return true;
+}
+
+
+/**
+ * Checks if a user already exists in the database based on their email.
+ * 
+ * @param {string} email - The email of the user to check.
+ * @returns {Promise&lt;boolean>} - Returns true if the user exists, otherwise false.
+ */
+async function checkIfUserExists(email) {
+    let response = await fetch(BASE_URL + "users.json");
+    if (response.ok) {
+        let users = await response.json();
+        return Object.values(users).some(user => user.email === email);
+    }
+}
+
+
+/**
+ * Toggles the checkbox icon between selected and unselected states.
+ */
+function toggleCheckBox() {
+    let checkBoxIcons = document.querySelectorAll("#checkBoxIcon, #checkBoxIcon2");
+
+    checkBoxIcons.forEach(checkBoxIcon => {
+        if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
+            checkBoxIcon.src = "./img/login_img/checkbox_icon_selected.svg";
+        } else {
+            checkBoxIcon.src = "./img/login_img/checkbox_icon.svg";
+        }
+        checkBoxIcon.style.width = "24px";
+        checkBoxIcon.style.height = "24px";
+    });
+}
+
+
+/**
+ * Saves the user's login details to localStorage if the checkbox is selected.
+ */
+function loginSave() {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let checkBoxIcon = document.getElementById('checkBoxIcon');
+
+    if (checkBoxIcon.src.includes("checkbox_icon_selected.svg")) {
+        checkBoxIcon.src = "./img/login_img/checkbox_icon_selected.svg";
+        checkBoxIcon.style.width = "24px";
+        checkBoxIcon.style.height = "24px";
+
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+    }
+}
+
+
+/**
+ * Displays a success message overlay and redirects to the login page.
+ */
+function showSuccessMessage() {
+    let overlay = document.getElementById('overlay');
+    let successMessage = document.getElementById('successMessage');
+
+    overlay.classList.add('show');
+    successMessage.classList.add('show');
+
+    setTimeout(() => {
+        successMessage.classList.remove('show');
+        overlay.classList.remove('show');
+        setTimeout(() => {
+            showLogin();
+        }, 500);
+    }, 2000);
+}
+
+
+/**
+ * Executes functions on window load such as disabling animations and populating saved email and password.
+ */
+window.onload = function () {
+    let savedEmail = localStorage.getItem('email');
+    let savedPassword = localStorage.getItem('password');
+
+    if (savedEmail) {
+        document.getElementById('email').value = savedEmail;
+    }
+    if (savedPassword) {
+        document.getElementById('password').value = savedPassword;
+    }
+}
+
+
+/**
+ * Logs in a guest user by updating their login status and storing their email in localStorage.
+ * @returns {Promise&lt;void>}
+ */
+async function guestLogin() {
+    const KEY = "-O-uRAuDbNBS14Z-OgQR";
+    let response = await fetch(`${BASE_URL}/users/${KEY}.json`);
+
+    let user = await response.json();
+
+    let updatedUser = createUpdatedUser(user);
+
+    await updateUser(KEY, updatedUser);
+
+    setLocalStorage(user);
+
+    window.location.href = 'welcome.html';
+}
+
+
+/**
+ * Creates an updated user object with login status set to true.
+ * @param {Object} user - The original user object.
+ * @returns {Object} The updated user object.
+ */
+function createUpdatedUser(user) {
+    return {
+        email: user.email,
+        name: user.name,
+        password: user.password,
+        loginStatus: true
+    };
+}
+
+
+/**
+ * Updates the user data on the server.
+ * @param {string} key - The user key.
+ * @param {Object} updatedUser - The updated user object.
+ * @returns {Promise&lt;Response>} The response from the server.
+ */
+async function updateUser(key, updatedUser) {
+    const response = await fetch(`${BASE_URL}/users/${key}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedUser)
+    });
+
+    return response;
+}
+
+
+/**
+ * Sets the user email and name in localStorage.
+ * @param {Object} user - The user object.
+ */
+function setLocalStorage(user) {
+    localStorage.setItem('emailUser', user.email);
+    localStorage.setItem('nameUser', user.name);
+}
+
+
+/**
+ * Displays an error message overlay.
+ * @param {string} message - The error message to display.
+ */
+function showError(message) {
+    let overlay = document.getElementById('overlay');
+    let errorDiv = document.getElementById('errorDiv');
+
+    overlay.classList.add('show');
+    errorDiv.classList.add('show');
+    errorDiv.textContent = message;
+
+    setTimeout(function () {
+        overlay.classList.remove('show');
+        errorDiv.classList.remove('show');
+    }, 2000);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateCurrentLink">activateCurrentLink</a></li><li><a href="global.html#activateMediumBtn">activateMediumBtn</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToDatabase">addUserToDatabase</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#capitalizeFirstLetterOfEachWord">capitalizeFirstLetterOfEachWord</a></li><li><a href="global.html#categorySelected">categorySelected</a></li><li><a href="global.html#changeAddIconFromSubtask">changeAddIconFromSubtask</a></li><li><a href="global.html#changeColor">changeColor</a></li><li><a href="global.html#changeColorOfCategoryEditTask">changeColorOfCategoryEditTask</a></li><li><a href="global.html#changeContentToEditPopUp">changeContentToEditPopUp</a></li><li><a href="global.html#changeEditTaskToStandardText">changeEditTaskToStandardText</a></li><li><a href="global.html#changeIconColor">changeIconColor</a></li><li><a href="global.html#changeNumberOfTasks">changeNumberOfTasks</a></li><li><a href="global.html#changePrioColorToLow">changePrioColorToLow</a></li><li><a href="global.html#changePrioColorToMedium">changePrioColorToMedium</a></li><li><a href="global.html#changePrioColorToUrgent">changePrioColorToUrgent</a></li><li><a href="global.html#changeSubtaskLiContent">changeSubtaskLiContent</a></li><li><a href="global.html#changeSubtaskToTrueOrFalse">changeSubtaskToTrueOrFalse</a></li><li><a href="global.html#changeTask">changeTask</a></li><li><a href="global.html#checkAndHideContainer">checkAndHideContainer</a></li><li><a href="global.html#checkIfAssignedToExistsAndPush">checkIfAssignedToExistsAndPush</a></li><li><a href="global.html#checkIfUserExists">checkIfUserExists</a></li><li><a href="global.html#checkLengthOfStepContainer">checkLengthOfStepContainer</a></li><li><a href="global.html#checkLoginStatus">checkLoginStatus</a></li><li><a href="global.html#checkLoginStatusAndRedirect">checkLoginStatusAndRedirect</a></li><li><a href="global.html#checkNumberOfUrgent">checkNumberOfUrgent</a></li><li><a href="global.html#checkProgressBar">checkProgressBar</a></li><li><a href="global.html#checkStep">checkStep</a></li><li><a href="global.html#checkTime">checkTime</a></li><li><a href="global.html#checkUserStoryOrTechnical">checkUserStoryOrTechnical</a></li><li><a href="global.html#checkWichPrioSelected">checkWichPrioSelected</a></li><li><a href="global.html#clearContactArrays">clearContactArrays</a></li><li><a href="global.html#clearContactContainer">clearContactContainer</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#clearListAndDetails">clearListAndDetails</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeDropDown">closeDropDown</a></li><li><a href="global.html#closeDropDownMenuContact">closeDropDownMenuContact</a></li><li><a href="global.html#closeDropDownWithBody">closeDropDownWithBody</a></li><li><a href="global.html#closePopUp">closePopUp</a></li><li><a href="global.html#closePopUpMenuContact">closePopUpMenuContact</a></li><li><a href="global.html#closePopUpOutsideContainer">closePopUpOutsideContainer</a></li><li><a href="global.html#createAndInsertHeader">createAndInsertHeader</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactHTML">createContactHTML</a></li><li><a href="global.html#createContactHeader">createContactHeader</a></li><li><a href="global.html#createUpdatedUser">createUpdatedUser</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtask">deleteInputSubtask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteSubtaskWithClearButton">deleteSubtaskWithClearButton</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#disactiveOtherBtn">disactiveOtherBtn</a></li><li><a href="global.html#displayFilteredTasks">displayFilteredTasks</a></li><li><a href="global.html#dragAndDropMobile">dragAndDropMobile</a></li><li><a href="global.html#dropDownMenuContact">dropDownMenuContact</a></li><li><a href="global.html#dropdown">dropdown</a></li><li><a href="global.html#editContactInDatabase">editContactInDatabase</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchUsers">fetchUsers</a></li><li><a href="global.html#fillInputFields">fillInputFields</a></li><li><a href="global.html#filterAllTasks">filterAllTasks</a></li><li><a href="global.html#filterTasksByCategory">filterTasksByCategory</a></li><li><a href="global.html#findUserByEmail">findUserByEmail</a></li><li><a href="global.html#formatUserName">formatUserName</a></li><li><a href="global.html#generateJsonObjects">generateJsonObjects</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#getDataFromAddContact">getDataFromAddContact</a></li><li><a href="global.html#getDataFromDatabase">getDataFromDatabase</a></li><li><a href="global.html#getDataFromDatabaseByStart">getDataFromDatabaseByStart</a></li><li><a href="global.html#getDataFromEditContact">getDataFromEditContact</a></li><li><a href="global.html#getDataFromTask">getDataFromTask</a></li><li><a href="global.html#getEditedText">getEditedText</a></li><li><a href="global.html#getFirstAndLastInitials">getFirstAndLastInitials</a></li><li><a href="global.html#getIdFromCheckboxAndChangeSrc">getIdFromCheckboxAndChangeSrc</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getKeyFromUser">getKeyFromUser</a></li><li><a href="global.html#getKeys">getKeys</a></li><li><a href="global.html#getKeysWithObjectKey">getKeysWithObjectKey</a></li><li><a href="global.html#getNameLocalStorage">getNameLocalStorage</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getTasksFromDatabase">getTasksFromDatabase</a></li><li><a href="global.html#getTextForPopUp">getTextForPopUp</a></li><li><a href="global.html#getUserKey">getUserKey</a></li><li><a href="global.html#getUsersInitials">getUsersInitials</a></li><li><a href="global.html#getValueFromInput">getValueFromInput</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hideContainerWithFade">hideContainerWithFade</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initAddTaskScript">initAddTaskScript</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#insertContactHeader">insertContactHeader</a></li><li><a href="global.html#isCategorySelected">isCategorySelected</a></li><li><a href="global.html#isPolicyAccepted">isPolicyAccepted</a></li><li><a href="global.html#loginSave">loginSave</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowActiveTrue">lowActiveTrue</a></li><li><a href="global.html#mediumActiveTrue">mediumActiveTrue</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#moveToDo">moveToDo</a></li><li><a href="global.html#navigateToBoard">navigateToBoard</a></li><li><a href="global.html#openAddTaskPopUp">openAddTaskPopUp</a></li><li><a href="global.html#openDropDown">openDropDown</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditTask">openEditTask</a></li><li><a href="global.html#openPopUp">openPopUp</a></li><li><a href="global.html#previousPage">previousPage</a></li><li><a href="global.html#pushChangedTaskToDatabase">pushChangedTaskToDatabase</a></li><li><a href="global.html#pushNamesInArray">pushNamesInArray</a></li><li><a href="global.html#pushNamesInDropDown">pushNamesInDropDown</a></li><li><a href="global.html#pushToDatabase">pushToDatabase</a></li><li><a href="global.html#putToDatabase">putToDatabase</a></li><li><a href="global.html#reducedDescriptionText">reducedDescriptionText</a></li><li><a href="global.html#removeAssignedToFromArray">removeAssignedToFromArray</a></li><li><a href="global.html#removeInitials">removeInitials</a></li><li><a href="global.html#removeRotation">removeRotation</a></li><li><a href="global.html#resetCategory">resetCategory</a></li><li><a href="global.html#resetSubtaskLiContent">resetSubtaskLiContent</a></li><li><a href="global.html#rotateTask">rotateTask</a></li><li><a href="global.html#safeEditedTaskDetails">safeEditedTaskDetails</a></li><li><a href="global.html#safeTaskDetails">safeTaskDetails</a></li><li><a href="global.html#saveEditByCheckmark">saveEditByCheckmark</a></li><li><a href="global.html#saveEditByEnter">saveEditByEnter</a></li><li><a href="global.html#saveUserSession">saveUserSession</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCheckboxIcons">setCheckboxIcons</a></li><li><a href="global.html#setLocalStorage">setLocalStorage</a></li><li><a href="global.html#setNumberOfTasks">setNumberOfTasks</a></li><li><a href="global.html#setSubtasksNumberToHTML">setSubtasksNumberToHTML</a></li><li><a href="global.html#showAddContact">showAddContact</a></li><li><a href="global.html#showAddContactPopUp">showAddContactPopUp</a></li><li><a href="global.html#showContactDetails">showContactDetails</a></li><li><a href="global.html#showCurrentInfoInPopUp">showCurrentInfoInPopUp</a></li><li><a href="global.html#showCurrentValuesInEditPopUp">showCurrentValuesInEditPopUp</a></li><li><a href="global.html#showError">showError</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showSelectedInitials">showSelectedInitials</a></li><li><a href="global.html#showSignUp">showSignUp</a></li><li><a href="global.html#showSuccessMessage">showSuccessMessage</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopHighlight">stopHighlight</a></li><li><a href="global.html#subtaskLengthIsNull">subtaskLengthIsNull</a></li><li><a href="global.html#subtaskValidation">subtaskValidation</a></li><li><a href="global.html#subtasksLengthIsHigherThenNull">subtasksLengthIsHigherThenNull</a></li><li><a href="global.html#targetOutsideOfContainer">targetOutsideOfContainer</a></li><li><a href="global.html#toggleCheckBox">toggleCheckBox</a></li><li><a href="global.html#toggleCheckBoxForSubtask">toggleCheckBoxForSubtask</a></li><li><a href="global.html#updateAndShowDetails">updateAndShowDetails</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateProgressBar">updateProgressBar</a></li><li><a href="global.html#updateUser">updateUser</a></li><li><a href="global.html#updateUserLoginStatus">updateUserLoginStatus</a></li><li><a href="global.html#urgentActiveTrue">urgentActiveTrue</a></li><li><a href="global.html#validatePasswords">validatePasswords</a></li><li><a href="global.html#welcomeUserName">welcomeUserName</a></li><li><a href="global.html#writeNumberOfTasksToHTML">writeNumberOfTasksToHTML</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Mon Jul 01 2024 17:15:45 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

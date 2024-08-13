@@ -1,0 +1,355 @@
+body {
+    background-color: rgba(246, 247, 248, 1);
+    margin: 0;
+    font-family: "Inter";
+    font-weight: 400;
+}
+
+.contentContainer {
+    width: fit-content;
+    height: auto;
+    margin: 45px 0 0 328px;
+    display: flex;
+}
+
+.titleContainer {
+    width: fit-content;
+    height: 73px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    font-size: 27px;
+}
+
+.titleJoin {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.title1360 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainContent {
+    width: fit-content;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.mainContainer {
+    width: 560px;
+    height: 562px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mainTopContainer {
+    width: 560px;
+    height: 168px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pencilCheckRectangleContainer {
+    width: 264px;
+    height: 168px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    padding: 38px 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    cursor: pointer;
+}
+
+.pencilCheckRectangle {
+    width: 69px;
+    height: 69px;
+    border-radius: 50%;
+    background-color: rgba(42, 54, 71, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.pencilCheckRectangleContainer:hover {
+    transform: scale(1.1);
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
+}
+
+.pencilCheckRectangleContainer:hover .pencilCheckRectangle {
+    background-color: white;
+}
+
+.pencilCheckRectangleContainer:hover .pencilCheckRectangle svg path {
+    stroke: rgba(42, 54, 71, 1);
+}
+
+.pencilCheckRectangleContainer:first-child svg path {
+    stroke-width: 0;
+}
+
+.pencilCheckRectangleContainer:first-child:hover .pencilCheckRectangle svg path {
+    fill: rgba(42, 54, 71, 1);
+}
+
+.pencilCheckRectangleContainer:nth-child(2):hover .pencilCheckRectangle svg path {
+    stroke: rgba(42, 54, 71, 1);
+}
+
+.counterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.counterDescription {
+    font-size: 20px;
+    text-align: center;
+}
+
+/* Grundstil für SVG */
+svg {
+    width: 38px;
+    height: 30px;
+}
+
+/* Grundstil für SVG-Pfad */
+svg path {
+    stroke: white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.counterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.counterDescription {
+    font-size: 20px;
+    text-align: center;
+}
+
+.mainMiddleContainer {
+    width: 560px;
+    height: 170px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 61px;
+    cursor: pointer;
+}
+
+.mainMiddleContainer:hover {
+    transform: scale(1.07);
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.urgentContainer {
+    height: 96px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.urgentContainer img {
+    width: 60px;
+    height: 60px;
+}
+
+.urgentCounterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.urgentCounter {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.urgentCounterDescription {
+    font-size: 16px;
+    text-align: center;
+}
+
+.urgentDeadlineContainer {
+    width: 178px;
+    height: 57px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.urgentDeadlineDate {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.urgentDeadlineDateDesription {
+    font-size: 16px;
+}
+
+.mainBottomContainer {
+    width: 560px;
+    height: 170px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tasksContainer {
+    width: 168px;
+    height: 168px;
+    background: white;
+    border-radius: 30px;
+    padding: 25px 0;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tasksContainer:hover {
+    transform: scale(1.1);
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tasksCounterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tasksCounter {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 76.8px;
+}
+
+.tasksCounterDescription {
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+}
+
+.userContainer {
+    width: 385px;
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fade-out {
+    transition: opacity 2s ease;
+    opacity: 0;
+}
+
+.userGreeting {
+    font-weight: 500;
+    font-size: 47px;
+    line-height: 56.4px;
+    margin-top: 155px;
+}
+
+.userGreetingName {
+    font-weight: 700;
+    font-size: 64px;
+    color: rgba(41, 171, 226, 1);
+}
+
+.fadeOverlayBg {
+    z-index: 250;
+    top: 80px;
+    bottom: 80px;
+    right: 0;
+    left: 0;
+    background-color: rgba(246, 247, 248, 1);
+    box-sizing: border-box;
+    padding: 0 16px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.userContainerFadeOverlay {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.userGreetingFadeOverlay {
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.userGreetingNameFadeOverlay {
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(41, 171, 226, 1);
+    margin-top: -24px;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+}
+
+#overlay.show {
+    display: block;
+    cursor: pointer;
+}

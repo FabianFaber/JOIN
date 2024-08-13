@@ -1,0 +1,472 @@
+@media (min-width: 1278px) {
+    #round-add-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 1278px) {
+    .contactsHeadline {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .contacts-slogan {
+        margin-top: -56px;
+        padding: 0px;
+    }
+
+    .contactsHeadline .blueBar {
+        width: 90px;
+        height: 3px;
+        margin-top: 10px;
+    }
+
+    .contactsHeadline {
+        align-items: flex-start;
+    }
+
+    #round-add-contact {
+        display: none;
+    }
+
+    .contactCardName {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin: 24px 0;
+        width: fit-content;
+        height: 150px;
+    }
+
+    .contactNameEdit {
+        display: flex;
+        gap: 16px;
+    }
+
+    .edit-del-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        width: fit-content;
+    }
+
+    .contactName {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: fit-content;
+    }
+
+    .contactCardEmail {
+        font-size: 16px;
+        gap: 16px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1140px) {
+    .contactNameEdit {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .contacts {
+        width: 390px;
+    }
+
+    .contactCard {
+        margin-left: 700px;
+    }
+
+    .userContacts {
+        max-height: 700px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        padding-right: 8px;
+        margin-right: -8px;
+    }
+}
+
+@media (max-width: 1125px) {
+    #round-add-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 1025px) {
+    .contacts {
+        margin: 80px 0;
+    }
+
+    .contactCard {
+        position: relative;
+        height: 100vh;
+        margin: 80px 0;
+    }
+
+    .contacts-data-container {
+        display: flex;
+        gap: 55%;
+    }
+
+    .userContacts {
+        max-height: 640px;
+    }
+}
+
+@media (max-width: 800px) {
+    .circleContactCard {
+        height: 80px;
+        min-width: 80px;
+        font-size: 38px;
+    }
+
+    .contactName p {
+        font-size: 38px;
+    }
+
+    .contacts {
+        width: 300px;
+    }
+
+    .contacts button {
+        width: 270px;
+    }
+
+    .userContacts {
+        width: 300px;
+    }
+
+    .contactsData {
+        width: 230px;
+        gap: 10px;
+        margin: 0 5px;
+    }
+
+    .contact-group {
+        padding-left: 0;
+    }
+
+    .contact-header {
+        width: 280px;
+    }
+
+    .edit-del-btn span {
+        font-size: 18px;
+        font-weight: 400;
+        color: #2a3647;
+    }
+}
+
+@media (max-width: 640px) {
+    .contactsHeadline {
+        display: none;
+    }
+
+    .contactNameEdit {
+        display: none;
+    }
+
+    .slide-in {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        bottom: 80px;
+        width: 100%;
+        background-color: #f5f5f5;
+        transition: all 0.1s ease;
+        box-sizing: border-box;
+        padding: 16px;
+    }
+
+    .contactCard {
+        position: unset;
+        display: none;
+    }
+
+    .contactCardName {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-weight: 700;
+        height: 84px;
+        margin: 0;
+    }
+
+    .contactCardName p {
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .contactsHeadlineMobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 48px; /* hier noch einmal schauen */
+        margin-bottom: 48px;
+    }
+
+    .contactsHeadlineMobile p {
+        font-size: 20px;
+        font-weight: 400;
+        margin: 0;
+    }
+
+    .contactsHeadlineMobile h2 {
+        font-size: 47px;
+        font-weight: 700;
+        margin: -10px 0 38px 0;
+    }
+
+    .contacts-slogan {
+        margin-top: -80px;
+        margin-bottom: -32px;
+        padding: 0px;
+        font-size: 20px;
+    }
+
+    .contactsHeadlineMobile .blueBar {
+        width: 90px;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #29abe2;
+    }
+
+    .contactCardInfo {
+        font-size: 20px;
+        font-weight: 400;
+        margin: 21px 0 0 0;
+    }
+
+    .contactName p {
+        font-size: 34px;
+        font-weight: 700;
+    }
+
+    .contacts {
+        width: 400px;
+        z-index: 1;
+    }
+
+    .contacts button {
+        display: none;
+    }
+
+    .userContacts {
+        width: 352px;
+    }
+
+    .contactsData {
+        width: 310px;
+        gap: 25px;
+        margin-left: 0px;
+    }
+
+    .contact-header {
+        width: 352px;
+    }
+
+    .contactCard {
+        z-index: 9;
+    }
+
+    .contacts {
+        width: 100%;
+        margin: 0;
+    }
+
+    #round-add-contact {
+        background-color: var(#2a3647);
+        bottom: 70px;
+    }
+
+    #round-add-contact {
+        display: flex;
+    }
+
+    .edit-del-btn {
+        padding: 10px;
+    }
+
+    .buttonDropdown {
+        display: block;
+        right: 20px;
+    }
+
+    .buttonDropdown:hover{
+        cursor: pointer;
+    }
+
+    #dropdownContact {
+        position: fixed;
+        right: -100%;
+        bottom: 100px;
+        width: 116px;
+        height: 100px;
+        background-color: white;
+        transition: right 0.3s ease;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    #dropdownContact.show {
+        right: 10px;
+    }
+
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 500;
+    }
+
+    #overlay.show {
+        display: block;
+    }
+
+    .closeCard {
+        display: block;
+        width: 24px;
+        position: fixed;
+        right: 5px;
+        top: 86px;
+    }
+
+    .userContacts {
+        height: 900px;
+        margin-top: 80px;
+    }
+}
+
+@media (max-width: 370px) {
+    .contacts button {
+        width: 270px;
+    }
+
+    .userContacts {
+        width: 300px;
+    }
+
+    .contactsData {
+        width: 250px;
+        gap: 10px;
+        margin-left: 5px;
+    }
+
+    .contact-group {
+        padding-left: 0;
+    }
+
+    .contact-header {
+        width: 280px;
+    }
+
+    .slide-in {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        bottom: 80px;
+        width: 100%;
+        background-color: #f5f5f5;
+        transition: all 0.1s ease;
+        box-sizing: border-box;
+        padding: 16px 16px 16px 16px;
+    }
+
+    .contactsHeadlineMobile p {
+        font-size: 20px;
+        font-weight: 400;
+        margin: -10px 0 0 0;
+    }
+
+    .circleContactCard {
+        height: 70px;
+        min-width: 70px;
+        font-size: 24px;
+    }
+
+    .contactsHeadlineMobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* gap: 8px; */
+        margin-bottom: 24px;
+    }
+
+    .contactsHeadlineMobile .blueBar {
+        width: 90px;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #29abe2;
+        /* margin-bottom: 24px; */
+    }
+
+    .contactCardInfo {
+        font-size: 18px;
+        font-weight: 400;
+        margin: 8px 0;
+    }
+
+    .contactCardName {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-weight: 700;
+        height: 84px;
+        margin: 0 0 8px 0;
+    }
+
+    .contactCardName p {
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .contactCardEmail {
+        font-size: 16px;
+        gap: 8px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .contactsHeadlineMobile h2 {
+        font-size: 42px;
+        font-weight: 700;
+        margin: -10px 0 38px 0;
+    }
+
+    .buttonDropdown {
+        display: none;
+        position: fixed;
+        bottom: 100px;
+        background-color: #2a3647;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+}
+
+@media (max-height: 670px){
+    .userContacts{
+        height: 480px;
+    }
+
+    #contact-details{
+        gap: 0;
+    }
+}

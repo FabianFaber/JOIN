@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/fonts.css">
+    <link rel="stylesheet" href="./style/loginRegister.css">
+    <link rel="stylesheet" href="./media/loginMedia.css">
+    <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
+    <title>JOIN</title>
+</head>
+
+<body>
+    <div id="sidebar_addtask" w3-include-html="sidebar.html" style="display: none;"></div>
+    <div class="joinLogo" id="animatedElement">
+        <svg width="101" height="122" viewBox="0 0 101 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_74094_5216)">
+            <path class="logoFill" d="M71.6725 0H49.5146V25.4923H71.6725V0Z" fill="#2A3647"/>
+            <path class="logoFill" d="M49.5142 46.2251H71.6721V82.1779C71.7733 90.8292 69.3112 99.3153 64.5986 106.557C59.9455 113.594 50.963 121.966 34.3446 121.966C16.2434 121.966 5.69286 113.406 0 108.715L13.9765 91.4743C19.533 96.0112 24.885 99.7435 34.4299 99.7435C41.6567 99.7435 44.5372 96.7988 46.2247 94.2307C48.5186 90.6637 49.7052 86.4923 49.6335 82.2464L49.5142 46.2251Z" fill="#2A3647"/>
+            <path d="M38.2135 30.1318H16.0557V52.3884H38.2135V30.1318Z" fill="#29ABE2"/>
+            <path class="logoFill" d="M83.2795 111.522C83.2795 116.265 80.8762 118.815 77.5184 118.815C74.1607 118.815 71.9619 115.785 71.9619 111.762C71.9619 107.739 74.2288 104.554 77.7059 104.554C81.183 104.554 83.2795 107.687 83.2795 111.522ZM74.5356 111.711C74.5356 114.57 75.6776 116.675 77.6377 116.675C79.5978 116.675 80.7057 114.45 80.7057 111.539C80.7057 108.988 79.6831 106.592 77.6377 106.592C75.5924 106.592 74.5356 108.903 74.5356 111.711Z" fill="#2A3647"/>
+            <path class="logoFill" d="M87.6771 104.76V118.593H85.2227V104.76H87.6771Z" fill="#2A3647"/>
+            <path class="logoFill" d="M90.3359 118.593V104.76H93.0631L95.9947 110.461C96.7494 111.952 97.4209 113.483 98.006 115.049C97.8526 113.337 97.7844 111.368 97.7844 109.177V104.76H100.034V118.593H97.4946L94.5289 112.772C93.7437 111.243 93.0438 109.671 92.4324 108.064C92.4324 109.776 92.5517 111.711 92.5517 114.09V118.576L90.3359 118.593Z" fill="#2A3647"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_74094_5216">
+            <rect width="100.034" height="121.966" fill="white"/>
+            </clipPath>
+            </defs>
+            </svg>            
+    </div>
+
+    <div class="overlay" id="showLogin">
+        <div class="logIn">
+
+            <form onsubmit="loginUser(); return false;">
+                <h2>Log in</h2>
+                <div class="registerInputLogin">
+                    <div class="input-container">
+                        <input class="inputmail" type="email" id="emailLogin" placeholder="Email" required>
+                        <img src="./img/login_img/email.png">
+                    </div>
+                    <div class="input-container">
+                        <input class="inputPassword" type="password" id="passwordLogin" placeholder="Password" required>
+                        <img src="./img/login_img/lock.png">
+                    </div>
+                </div>
+                <div class="checkboxLogin">
+                    <img onclick="toggleCheckBox()" id="checkBoxIcon" src="./img/login_img/checkbox_icon.svg"
+                        style="width: 24px; height: 24px;">
+                    <p>Remember Me</p>
+                </div>
+                <div class="loginButton">
+                    <button class="loginBtn">Log in</button>
+                    <button class="guestBtn" onclick="guestLogin();">Guest Log in</button>
+                </div>
+            </form>
+
+            <div class="register">
+                <p>Not a Join User?</p> <button onclick="showSignUp();">Sign up</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="hidden" id="showSignup">
+        <form id="passwordForm" onsubmit="addUser(); return false;">
+            <div class="previousPage">
+                <div><img onclick="showLogin();" src="./img/login_img/arrow-left.png" alt=""></a></div>
+                <div>
+                    <h2>Sign Up</h2>
+                </div>
+                <div style="width: 21px;"></div>
+            </div>
+
+            <div class="registerInput">
+                <div class="input-container">
+                    <input class="inputName" type="name" id="name" placeholder="Name" required>
+                    <img src="./img/login_img/person.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputmail" type="email" id="email" placeholder="Email" required>
+                    <img src="./img/login_img/email.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputPassword" type="password" id="password" placeholder="Password" required>
+                    <img src="./img/login_img/lock.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputPassword" type="password" id="confirmPassword" placeholder="Confirm Password"
+                        required>
+                    <img src="./img/login_img/lock.png">
+                </div>
+                <div class="error" id="error">Ups! Your password don't match</div>
+            </div>
+
+            <div class="checkboxLogin">
+                <img onclick="toggleCheckBox()" id="checkBoxIcon2" src="./img/login_img/checkbox_icon.svg"
+                    style="width: 24px; height: 24px;">
+                <p>I accept the</p> <a class="checkbox" href="privacyPolicy.html">Privacy policy</a>
+            </div>
+
+            <button class="signBtn">Sign Up</button>
+        </form>
+    </div>
+
+    <div class="background"></div>
+
+    <div id="overlay" class="overlayRegister"></div>
+    <div id="successMessage" class="success-message">You Signed Up successfully</div>
+    <div id="errorDiv" class="success-message"></div>
+
+    <footer>
+        <a onclick="openSiteWithoutLogin('privacyPolicy.html')">Privacy Policy</a><a onclick="openSiteWithoutLogin('legalNotice.html')">Legal notice</a>
+    </footer>
+
+    </div>
+
+    <script src="./js/login.js"></script>
+  
+
+</body>
+
+</html>

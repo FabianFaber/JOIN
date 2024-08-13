@@ -1,0 +1,457 @@
+:root {
+    --background-color-body: rgba(245, 245, 245, 1);
+    --background-color-main: rgba(42, 54, 71, 1);
+    --background-color-white: rgba(255, 255, 255, 1);
+    --background-color-active: rgba(9, 24, 47, 1);
+    --background-color-lightBlue: rgba(41, 171, 226, 1);
+    --background-color-lightGray: rgba(217, 217, 217, 1);
+
+    --background-color-technical-task: rgba(31, 215, 193, 1);
+    --background-color-user-story: rgba(0, 56, 255, 1);
+
+    --background-color-hover-menu-sidebar: rgba(56, 72, 95, 1);
+
+    --background-color-urgent-and-arrow: rgba(255, 61, 0, 1);
+    --background-color-medium-and-arrow: rgba(255, 168, 0, 1);
+    --background-color-low-and-arrow:  rgba(122, 226, 41, 1);
+
+    --border1px: 1px solid;
+    --border2px: 2px solid;
+
+    --border-light-gray: rgba(209, 209, 209, 1);
+    --border-light-blue: rgba(41, 171, 226, 1);
+
+    --shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    --white: rgba(255, 255, 255, 1);
+    --lightBlue: rgba(41, 171, 226, 1);
+    --style: rgba(209, 209, 209, 1);
+    --mainText-color: rgba(0, 0, 0, 1);
+
+    --font-size: ;
+}
+
+::-webkit-scrollbar {
+    width: 6px; /* Breite des vertikalen Scrollbalkens */
+    height: 4px; /* Höhe des horizontalen Scrollbalkens */
+}
+
+/* Hintergrund des Scrollbalkens */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Scrollbalken Daumen */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; /* Runde Ecken */
+}
+
+body {
+    font-family: "Inter";
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--mainText-color);
+    background-color: var(--background-color-body);
+}
+
+.mt--90{
+    margin-top:-90px;
+}
+
+.mb-90{
+    margin-bottom:90px;
+}
+
+.task-overlay-content{
+    display:flex;
+    flex-direction: column;
+    gap:21px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:730px;
+    padding-right: 8px;
+}
+
+.taskOverlay {
+    width: 525px;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 24px 48px 24px;
+    background-color: var(--background-color-white);
+    border-radius: 30px;
+    justify-content: space-between;
+    gap:21px;
+    box-sizing: border-box;
+}
+
+.taskSelect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.taskSelectContainer {
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 4px 24px;
+    color: var(--white);
+    font-size: 23px;
+}
+
+.userStory {
+    background-color: var(--background-color-user-story);
+}
+
+.userTechnicalTask {
+    background-color: var(--background-color-technical-task);
+}
+
+.close {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.headline {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    word-wrap: break-word;
+}
+
+.description{
+    word-break: break-all;
+}
+
+.descriptionContent {
+    line-height: 1.5;
+    position: relative;
+    cursor: pointer;
+}
+
+#contacts-initials-container-board{
+    height:50px !important;
+    padding-bottom: 20px;
+}
+
+.descriptionContent::after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: white;
+    padding-left: 8px;
+}
+
+.descriptionPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    z-index: 500;
+    display: none; /* Standardmäßig ausgeblendet */
+}
+
+.datePriorityAssignedSubtasks {
+    display: flex;
+    font-size: 20px;
+}
+
+.datePriority {
+    width: 130px;
+    color: rgba(66, 82, 110, 1);
+}
+
+.textColor {
+    color: rgba(66, 82, 110, 1);
+}
+
+.assigned {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    color: rgba(66, 82, 110, 1);
+}
+
+.participantsContainer {
+    max-height: 161px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: black;
+}
+
+.participantsContainer div {
+    box-sizing: border-box;
+    padding: 7px 16px;
+}
+
+.participants {
+    display: flex;
+}
+
+.participantsInitials {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: var(--white);
+    background-color: cadetblue;
+}
+
+.participantsName {
+    font-size: 19px;
+}
+
+.subtasksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: rgba(66, 82, 110, 1);
+}
+
+.subtaskEnumeration {
+    font-size: 16px;
+    overflow-y: auto;
+    display: flex;
+    gap: 4px;
+    display: flex;
+    padding: 6px 16px;
+    gap: 16px;
+}
+
+.subtask-checkbox {
+    color: black;
+    display: flex;
+    gap: 16px;
+    padding: 6px 16px;
+}
+
+.check {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.check img {
+    position: absolute;
+}
+
+.firstLayer {
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+}
+
+.secondLayer {
+    z-index: 2;
+    width: 15px;
+    height: 15px;
+}
+
+.deleteEditBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    padding-right: 16px;
+}
+
+.deleteEditBtnContainer button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+}
+
+.deleteEditBtnContainer img {
+    width: 24px;
+    height: 24px;
+    fill: var(--background-color-main);
+}
+
+.deleteEditBtnContainer button:hover {
+    color: var(--lightBlue);
+    font-weight: 700;
+}
+
+.deleteEditBtnContainer button:hover svg path {
+    fill: var(--background-color-lightBlue);
+}
+
+.stroke {
+    width: 1px;
+    background-color: var(--style);
+}
+
+.deleteBtn {
+    width: 71px;
+}
+
+.editBtn {
+    width: 58px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* #popup-description{
+    max-height:100px;
+    overflow-y: auto;
+} */
+
+/* taskOverlayEditPopup */
+
+.w-400{
+    width:400px !important;
+}
+
+.okBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.okBtn {
+    background-color: var(--background-color-main);
+    color: var(--white);
+    padding: 10px 18px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+}
+
+.okBtn:hover {
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
+    background-color: var(--background-color-lightBlue);
+}
+
+textarea {
+    position: relative;
+    /* width: 100%; */
+    height: 120px;
+    border-radius: 10px;
+    border: 1px solid var(--border-light-gray);
+    outline: none;
+    box-sizing: border-box;
+    padding: 18px 16px;
+    font-size: 21px;
+    font-family: "Inter";
+    cursor: pointer;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+textarea::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 10px;
+    border-width: 10px;
+    border-style: solid;
+}
+
+textarea:focus,
+input:focus {
+    border: 1px solid var(--border-light-blue);
+}
+
+input {
+    /* width: 100%; */
+    border-radius: 10px;
+    padding: 12px 21px;
+    box-sizing: border-box;
+    font-size: 21px;
+    outline: none;
+    border: 1px solid var(--border-light-gray);
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 16px;
+}
+
+.priorityButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+}
+
+.batchContainer {
+    display: flex;
+    gap: 20px;
+}
+
+.batch {
+    width: 32px;
+    height: 32px;
+    gap: 0px;
+    border-radius: 50%;
+    border: var(--border2px) var(--border-light-gray);
+}
+
+.textdesign {
+    color: var(--mainText-color);
+}
+
+.marginRight16px {
+    margin-right: 16px;
+}
+
+.assigned-to-pop-up{
+    height:150px;
+    overflow-y: auto;
+}
+
+@media (max-width: 1025px) {
+    .taskOverlay{
+        height: 750px;
+    }
+}
+
+@media (max-width: 525px) {
+    .taskOverlay{
+        height: 600px;
+    }
+}

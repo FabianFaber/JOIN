@@ -1,0 +1,108 @@
+@media (max-width: 525px) {
+    .taskOverlay {
+        width: 407px;
+        min-width: 288px;
+        padding: 32px 24px;
+        gap: 16px;
+    }
+
+    .headline {
+        font-size: 50px;
+        line-height: 60px;
+    }
+
+    .description, .datePriority, .assigned, .subtasksContainer, .taskSelect, .dateSelect, .container, .container textarea, .container input, .prio button {
+        font-size: 16px;
+        
+    }
+
+    .subtask-checkbox img {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    /* .prio button img {
+        height: 8px;
+        width: 14px;
+        margin-left: 8px;
+    }
+
+    .prio button {
+        height: 8px;
+        width: 14px;
+        margin-left: 8px;
+        padding: 18px 10px;
+    } */
+
+}
+
+@media (max-width: 396px) {
+    body {
+        font-size: 18px;
+    }
+
+    .taskOverlay {
+        width: 288px;
+        height: 498px;
+        padding: 24px 18px;
+        /* gap: 10px; */
+    }
+
+    .taskSelectContainer {
+        border-radius: 8px;
+        box-sizing: border-box;
+        padding: 4px 16px;
+        color: var(--white);
+        font-size: 19px;
+    }
+
+    .headline {
+        font-size: 36px;
+        line-height: 43.2px;
+    }
+
+    .datePriorityAssignedSubtasks {
+        display: flex;
+        font-size: 16px;
+    }
+
+    .datePriority {
+        width: 100px;
+        /* font-weight: 700; */
+    }
+
+    .participantsName {
+        font-size: 16px;
+    }
+
+    .participantsContainer div {
+        box-sizing: border-box;
+        padding: 4px 12px;
+    }
+}
+
+@media (max-width: 339px) {
+    .taskOverlay {
+        /* width: 100%; */
+        /* padding: 24px 18px; */
+        gap: 12px;
+    }
+
+    .taskSelectContainer {
+        font-size: 19px;
+    }
+
+    .headline {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .datePriorityAssignedSubtasks {
+        display: flex;
+        font-size: 16px;
+    }
+
+    .assignedTextColor {
+        font-weight: 700;
+    }
+}
